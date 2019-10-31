@@ -18,12 +18,12 @@ public class Login extends JFrame {
     public final static String URL = "jdbc:mysql://localhost:3306/librarydemo?useSSL=false";
 
 
-    public Login() throws ClassNotFoundException, SQLException {
+    public Login() {
 
         Container c = getContentPane();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 //        setSize(400,250);
-        setBounds(300, 300, 400, 250);
+        setBounds(300, 250, 400, 250);
         setTitle("用户登录界面");
         c.setLayout(null);
         /*
@@ -40,15 +40,12 @@ public class Login extends JFrame {
         name.setBounds(140, 40, 165, 25);
         JPasswordField password = new JPasswordField();
         password.setBounds(140, 70, 165, 25);
-        name.setColumns(20);//设置文本框长度
-        name.setFont(new Font("黑体", Font.PLAIN, 20));
-        password.setColumns(20);//设置文本框长度
-        password.setFont(new Font("黑体", Font.PLAIN, 20));
+
         /*
          * 创建登录按钮
          */
         JButton loginbutton = new JButton("登录");
-        loginbutton.setBounds(160, 110, 60, 30);
+        loginbutton.setBounds(100, 130, 60, 30);
         loginbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,7 +71,7 @@ public class Login extends JFrame {
                         } else {
                             JOptionPane.showMessageDialog(null, "账号或密码错误", "错误", JOptionPane.ERROR_MESSAGE);
                         }
-                    } else if (s1.length() == 0 || s2.length() == 0) {
+                    } else {
                         JOptionPane.showMessageDialog(null, "请输入帐号或密码", "错误", JOptionPane.ERROR_MESSAGE);
                     }
                     rs.close();
@@ -89,22 +86,27 @@ public class Login extends JFrame {
             }
         });
 
+        JButton resetButton = new JButton("重置");
+        resetButton.setBounds(200, 130, 60, 30);
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                name.setText("");
+                password.setText("");
+            }
+        });
+
 
         c.add(l1);
         c.add(name);
         c.add(l2);
         c.add(password);
         c.add(loginbutton);
+        c.add(resetButton);
         setVisible(true);
     }
 
     public static void main(String[] args) {
-        try {
-            new Login();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        new Login();
     }
 }
